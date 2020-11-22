@@ -1,0 +1,24 @@
+.list {
+    width: 7%;
+}
+
+ul.leftlist{
+    border-radius: 10px;
+    list-style-type: none;
+    margin: 0;
+    padding: 10px;
+    overflow: hidden;
+    background-color: black;
+}
+
+li.leftlistelement{
+    display: block;
+    color: white;
+    text-align: center;
+    background-color: crimson;
+    padding: 5px 5px 5px 5px;
+    margin-right: 5px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    text-decoration: none;
+}

@@ -1,0 +1,53 @@
+.main {
+    height: 70px;
+    background-color: black;
+    font-size: large;
+    font-weight: 700;
+}
+
+.container{
+    margin: 0 auto;
+    padding: 20px;
+    width: 80%;
+    display: flex;
+    flex-direction: row;  
+}
+
+a{
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+}
+
+.container .user_name {
+    float: left;
+    border : none;
+    padding : 5px 20px;
+    border-radius: 9px;
+    background-color: crimson;
+    color : white;
+}
+.container .logo {
+    margin-left: auto;
+    color: white;
+    border : none;
+    padding : 5px 20px;
+    border-radius: 9px;
+    background-color: crimson;
+}
+.container .btn {
+    margin-left: auto;
+    border : none;
+    padding : 5px 20px;
+    border-radius: 9px;
+    background-color: crimson;
+    color : white
+}
+.container .btn:hover {
+    background-color: black;
+}
+.container .logo:hover {
+    background-color: black;
+}
+.container .user_name:hover {
+    background-color: black;
+}

@@ -1,0 +1,104 @@
+.main2{
+    margin-top: 15%;
+}
+.searchbar {
+    display: inline-block;
+    background-color: transparent;
+    width: 100%;
+    padding-top: 20px;
+    height: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    color: rgba(0,0,0,.73);
+}
+.searchbar:focus{
+    outline: 0;
+}  
+.searchbar input{
+    background-color: black;
+    width: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    color: rgba(255,255,255,.73);
+    padding: 10px 5px;
+    border-style: solid;
+    border-color:crimson;
+    border-width: 0px 0px 0px 10px;
+    padding-left: 20px;
+}
+
+.searchbar input:focus{
+    outline: 0;
+}
+
+.searchbar ul{
+    list-style-type: none;
+    text-align: left;
+    margin:0;
+    padding: 0;
+    color:white;
+    background-color: transparent;
+    overflow-y: auto;
+    overflow-x: hidden;
+    white-space: nowrap;
+}
+
+.searchbar ul::before{
+    content: "";
+}
+
+.searchbar li{
+    list-style-type: none;
+    text-align: left;
+    margin:0;
+    padding: 0;
+    background-color: black;
+    color:white;
+    padding: 10px 5px;
+    cursor: pointer;
+}
+
+.searchbar li:hover{
+    background-color: crimson;
+    color: black;
+}
+
+ul.taglist{
+    border-radius: 10px;
+    list-style-type: none;
+    margin: 0;
+    padding: 10px;
+    overflow: hidden;
+    background-color: black;
+}
+
+li.tagelement{
+    float: left;
+    display: block;
+    color: white;
+    text-align: center;
+    background-color: crimson;
+    padding: 5px 5px 5px 15px;
+    margin-right: 5px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+
+/* li.tagelement:hover{
+     content : url(../images/19187836491541068764-512.png);
+    display: block;
+    position: absolute;
+     background-image: url(../images/19187836491541068764-512.png);
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    height:20px;
+    width:100px;
+    display:block; 
+} */
+
+.icon{
+    padding-left: 5px;
+    cursor: pointer;
+}
