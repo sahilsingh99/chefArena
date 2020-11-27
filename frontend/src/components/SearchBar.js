@@ -12,7 +12,8 @@ class SearchBar extends Component {
             suggestions : [],
             text : '',
             selectedTags : JSON.parse(localStorage.getItem('selectedTags')) || [],
-            allowProblems : false
+            allowProblems : false,
+            addUserDefinedTag : false
         }
         this.tags = {};
         this.problems = {};

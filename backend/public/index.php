@@ -92,7 +92,7 @@ $app->get('/', function(Request $req, Response $res, array $args) {
             $res->getBody()->write(json_encode($response));
         } catch(Exception $e) {
             $res->getBody()->write(json_encode(
-                array("status"=>"error","data"=>["message"=>"database error"])
+                array("status"=>"error","data"=>["message"=>$e->getMessage()])
               ));
         }
     } else {

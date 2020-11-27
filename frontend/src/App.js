@@ -55,6 +55,7 @@ class App extends React.Component {
 
   
   render() {
+    console.log(this.state.accessToken);
     return (
       <div className="App">
         <NavBar 

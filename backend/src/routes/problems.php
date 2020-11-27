@@ -46,3 +46,24 @@ $app->get('/tags/problems', function(Request $req, Response $res, $args) {
     }
         return $res->withHeader('content-type', 'application/json');
 });
+
+$app->get('/private/problems',function(Request $req, Response $res, $args) {
+    $username = $_GET['username'];
+    $sql = "Select * from userData where username ='".$username."';";
+    try {
+        $db = new database();
+        $db = $db->connect();
+        $statement = $db->query($sql);
+        $user = $statement->fetchAll(PDO::FETCH_OBJ);
+        //return $res->getBody()->write(json_encode($user));
+        $user = json_decode(json_encode($user[0]), true);
+        $sql = "select * from user_defined_tags where tags ='".$_GET['filter']."';";
+        $statement = $db->query($sql);
+        $tags = $statement->fetchAll(PDO::FETCH_OBJ);
+        $tags = json_decode(json_encode($tags), true);
+        $res->getBody()->write(json_encode(array("status" => "OK", "data" => $tags))); 
+    } catch(Exception $e) {
+        $res->getBody()->write(json_encode(array("status"=>"error","data"=>["message"=>$e->getMessage()])));
+    }
+    return $res;//->withHeader('content-type', 'application/json');
+});

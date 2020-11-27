@@ -37,9 +37,12 @@ class Problems extends Component {
                                 <li className = "pli">
                                     Solved : {item.solved}
                                 </li>
+                                <li className = "pli add" >
+                                    ADD TAGS
+                                </li>
                             </ul> 
                             <ul className = "pul">
-                                {item.tags.map(tag => <li onClick = {this.props.handler(tag)} className = "pli">{tag}</li>)}
+                                {item.tags.map((tag,i) => <li key = {i} onClick = {this.props.handler(tag)} className = "pli">{tag}</li>)}
                             </ul>
                             <br/>
                         </div>

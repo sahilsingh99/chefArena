@@ -30,7 +30,6 @@ class NavBar extends Component {
             }
          });
          const data = await response.json();
-         //console.log("data", data);
          if(data['data']['username'] != null) {
             if(data['data']['username'] === '') {
                 this.setState({
@@ -62,15 +61,17 @@ class NavBar extends Component {
                 const data = await response.json();
                 if (data['status'] === 'OK') {
                 const cookies = new Cookies();
-                cookies.set('user', data['data']['username'], { path: '/',maxAge: 31536000});
+                cookies.set('user', data['data']['username'], { path: '/',maxAge: 3600});
                 this.props.handler(data['data']['access_token']);
                     this.setState(pstate => {
                     return {
                         username: data['data']['username'],
                         rating: data['data']['band']
                         }
-                    });
-                    window.location.href = 'http://localhost:3000/';
+                    });   
+                } else{
+                    console.log("what's the issue", data);
+                    alert('OOpss Something is going wrong .. try again');
                 }
             }
         }
