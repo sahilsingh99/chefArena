@@ -6,36 +6,38 @@ class TagList extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            tags : [],
-            author : []
-        };
-    }
-
-    componentDidMount() {
-        let collectAll = this.props.items;
-        console.log("all elements in taglist", this.props.items);
-        this.setState({tags : collectAll});
+        this.state = {};
     }
 
     renderList() {
-        const tags = this.props.items;
+        const tags = this.props.tags;
+        const tagArray = Object.values(tags);
+        //console.log("tags inside render of taglist ", tags);
         if(tags.length === 0) {
             return null;
         }
         return (
-            <ul className = "leftlist">
-                {tags.map((item, i) => <li className = "leftlistelement" key = {i}>{item}</li>)}
+            <ul className = "flexTagList">
+                {
+                    tagArray.map(
+                        (item,i) => 
+                        <div className = "tagCard" onClick = {this.props.handler(item.tag)} key = {i}>
+                            {item.tag} <i className="fa fa-close icon"></i> {item.count}
+                        </div>
+                    )
+                }
             </ul>
         )
     }
 
     render() {
-        return (
+        return (<div>
             <div className = "list">
-                <h1>ALL Tags</h1>
+                <h1>ALL TAGS</h1>
                 {this.renderList()}
             </div>
+        </div>
+            
         )
     }
 }

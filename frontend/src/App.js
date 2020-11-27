@@ -3,54 +3,75 @@ import React from 'react'
 // importing NavBar
 import NavBar from './components/NavBar';
 import SearchBar from './components/SearchBar';
-import TagList from './components/TagList';
+// import TagList from './components/TagList';
+// import Problems from './components/Problems';
 
 class App extends React.Component {
 
   constructor() {
     super();
     this.state = {
-      allTags : [],
       isLoggedIn : false,
-      user : 'Guest'
+      accessToken : ''
+      //allowProblems : false
     }
+    // this.tags = {};
+    // this.problems = [];
+    this.loginStateHandler = this.loginStateHandler.bind(this);
+    // this.loadTags = this.loadTags.bind(this);
+    // this.loadProblems = this.loadProblems.bind(this);
   }
 
-  async componentDidMount() {
-    fetch('http://backend.test/',{
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        }
-      })
-          .then(response => response.json())
-          .then(data => {
-            //console.log(data);
-            let items = data['tags'].map(item => item);
-            console.log("all tags" , items);
-            this.setState({
-              allTags : items
-            })
-          })
-          .catch(err => {
-            console.log(err);
-          }) 
+  loginStateHandler(accessT) {
+      if(this.state.isLoggedIn) {
+        this.setState({
+          accessToken : '',
+          isLoggedIn : false
+        })
+      }
+      else {
+        this.setState({
+          accessToken : accessT,
+          isLoggedIn : true
+        })
+      }
   }
+  
+  // loadTags(tags) {
+  //   //console.log("tags in load Tags");
+  //   //console.log(tags);
+  //   this.tags = tags;
+  //   this.setState({
+  //     allowProblems : false
+  //   });
+  // }
 
+  // loadProblems(problems) {
+  //   this.problems = problems;
+  //   this.setState({
+  //     allowProblems : true
+  //   });
+  // }
+
+  
   render() {
     return (
       <div className="App">
         <NavBar 
-          name = {this.state.user} 
-          isLoggedIn = {this.state.isLoggedIn} />
-        <div className = "main-content">
-            <div className = "App-Component">
-              <SearchBar items = {this.state.allTags} />
-            </div>
-            <div className = "tag-list">
-              <TagList items = {this.state.allTags} />
-            </div>
-        </div>
+          state = {this.state}
+          handler = {this.loginStateHandler}  
+          />
+          <div className = "App-Component">
+              <SearchBar 
+                state = {this.state}
+                // tagHandler = {this.loadTags}
+                // problemHandler = {this.loadProblems}
+              />
+          </div>
+          {/* {this.state.allowProblems ? 
+                 <Problems state = {this.state} problems = {this.problems} /> :
+                <TagList state = {this.state} tags = {this.tags} /> 
+              } */}
       </div>
     );
   }

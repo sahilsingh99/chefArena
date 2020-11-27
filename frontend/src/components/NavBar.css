@@ -40,10 +40,12 @@ a{
     padding : 5px 20px;
     border-radius: 9px;
     background-color: crimson;
-    color : white
+    color : white;
+    cursor: pointer;
 }
 .container .btn:hover {
     background-color: black;
+    
 }
 .container .logo:hover {
     background-color: black;

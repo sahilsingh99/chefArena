@@ -1,5 +1,6 @@
 .list {
-    width: 7%;
+    margin : auto;
+    width: 100%;
 }
 
 ul.leftlist{
@@ -21,4 +22,18 @@ li.leftlistelement{
     margin-bottom: 10px;
     border-radius: 5px;
     text-decoration: none;
+}
+
+.tagCard{
+    float: left;
+    display: block;
+    color: white;
+    text-align: center;
+    background-color: crimson;
+    padding: 5px 5px 5px 15px;
+    margin-right: 5px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
 }
