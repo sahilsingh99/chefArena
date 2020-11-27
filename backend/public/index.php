@@ -17,10 +17,9 @@ $_SESSION['client_info'] = array(
     'api_endpoint' => 'https://api.codechef.com',
     'authorization_code_endpoint' => 'https://api.codechef.com/oauth/authorize',
     'access_token_endpoint' => 'https://api.codechef.com/oauth/token',
-    'redirect_uri' => 'https://codechefarena.herokuapp.com/',
-    'website_base_url' => 'https://codechefarena.herokuapp.com/',
+    'redirect_uri' => 'http://localhost:3000/',
+    'website_base_url' => 'http://localhost:3000/',
     'state' =>'xyz',
-    'scope' => 'public',
 );
 
 // setting configs
@@ -43,15 +42,69 @@ $container['logger'] = function($c) {
 // cors files
 require __DIR__ . '/../src/config/cors.php';
 
+// setting guzzle for http request
+$GLOBALS['client'] = new \GuzzleHttp\Client([
+    'base_uri' => $_SESSION['client_info']['api_endpoint'],
+]);
+
 // home router
 $app->get('/', function(Request $req, Response $res, array $args) {
-    $db = new database();
-    $db->connect();
-    $dummyData = array('abc','abcd','abcde','abcdef','bcd','bcde','cdef','cde','def','ghi','jkl','mno','dummy','2-D','easy','hard','medium','array','sahil','aman','stack','dp','greedy');
-    $res->withStatus(200)->write(json_encode(array("status"=>"OK", "tags" => $dummyData)));
-    return $res;
+
+    /*
+      Rresponse => for response of codechef api
+      response => json decoded response of codechef api
+      res => response of the route
+      */
+
+    $username = $_GET['username'];
+    if($username != ''){
+        $sql_query = "select * from userData where username = '".$username."' ;";
+        try {
+            $db = new database();
+            $db = $db->connect();
+            $query_result = $db->query($sql_query);
+            $user = $query_result->fetchAll(PDO::FETCH_OBJ);
+            $user = json_decode(json_encode($user[0]),true);
+            $access_token = $user['access_token'];
+            if($user['active'] == 'F') {
+                $refresh_token = $user['refresh_token'];
+
+                $params = array(
+                    'grant_type'=>'refresh_token',
+                    'refresh_token'=>$refresh_token,
+                    'client_id'=>$_SESSION['client_info']['client_id'],
+                    'client_secret'=>$_SESSION['client_info']['client_secret']
+                );
+
+                $Rresponse = $GLOBALS['client']->request('POST','oauth/token', ['form_params' => $params]);
+                if($Rresponse->getStatusCode() != 200) {
+                    throw new Exception('failed');
+                }
+                $body = $Rresponse->getBody();
+                $res = json_decode($body,true);
+                $result = $res['result']['data'];
+                $access_token = $result['access_token'];
+                $refresh_token = $result['refresh_token'];
+                $sql_str = "Update userData set access_token = '".$access_token."',refresh_token = '".$refresh_token."',login_time = NOW(),active = 'T' where username = '".$username."';";
+                $db->query($sql_str);
+            }
+            $response = array("status"=>"OK","data"=>["username" => $user["username"],"access_token" => $access_token,"band" => $user["band"]]);
+            $res->getBody()->write(json_encode($response));
+        } catch(Exception $e) {
+            $res->getBody()->write(json_encode(
+                array("status"=>"error","data"=>["message"=>"database error"])
+              ));
+        }
+    } else {
+        $response = array("status"=>"OK","data"=>["username" => '']);
+        $res->getBody()->write(json_encode($response));
+    }
+    return $res->withHeader('content-type' , 'application/json');
 });
 
+require __DIR__.'/../src/routes/auth.php';
+require __DIR__.'/../src/routes/tags.php';
+require __DIR__.'/../src/routes/problems.php';
 
 $app->run();
 
