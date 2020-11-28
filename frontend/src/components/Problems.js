@@ -10,7 +10,7 @@ class Problems extends Component {
     renderProblemList() {
         const problems = this.props.problems;
         const problemArray = Object.values(problems);
-        console.log("tags inside render of problemlist ", problems);
+        //console.log("tags inside render of problemlist ", problems);
         if(problems.status === "NOT FOUND") {
             return (
                 <div className = "notFound">

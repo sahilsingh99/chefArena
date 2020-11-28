@@ -50,8 +50,8 @@ class SearchBar extends Component {
             this.items.push(data[key].tag);
             this.tags[key] = data[key];
         }
-        console.log('inside getTags');
-        console.log(this.tags);
+        //console.log('inside getTags');
+       // console.log(this.tags);
         this.updatePage();
         //console.log("tags inside searchbar", this.tags);
      }

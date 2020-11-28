@@ -80,7 +80,7 @@ class NavBar extends Component {
     async login() {
         //console.log(this);
         if(this.props.state.isLoggedIn === false) {
-            window.location.href = "https://api.codechef.com/oauth/authorize?response_type=code&client_id=1d6ff67cd4f31121f089d15c1cbb93b8&state=xyz&redirect_uri=http://localhost:3000/";
+            window.location.href = "https://api.codechef.com/oauth/authorize?response_type=code&client_id=1d6ff67cd4f31121f089d15c1cbb93b8&state=xyz&redirect_uri=https://lit-dawn-63895.herokuapp.com/";
         } else {
             const cookie = new Cookies();
             const username = cookie.get('user');
